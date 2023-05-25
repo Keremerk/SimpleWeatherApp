@@ -83,15 +83,7 @@ class CitySelectionFragment : Fragment() {
                 val bundle = Bundle().apply {
                     putString("cityName", clickedCityName)
                 }
-
-               // Use childFragmentManager instead of supportFragmentManager
-                val transaction = childFragmentManager.beginTransaction()
-                    transaction.replace(R.id.fragmentContainerView2, HomeFragment().apply {
-                        arguments = bundle
-                    })
-
-
-                    transaction.commit()
+                findNavController().navigate(R.id.action_citySelectionFragment_to_homeFragment2,bundle)
                 println(position)
                 println(clickedCityName)
                 println("this is the clicked categories' styles $clickedCityName")

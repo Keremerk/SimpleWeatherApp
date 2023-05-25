@@ -7,7 +7,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.viewModelScope
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.example.weatherapp.R
 import com.example.weatherapp.databinding.FragmentHomeBinding
 import com.example.weatherapp.viewmodel.WeatherViewModel
 import com.google.gson.stream.JsonReader
@@ -31,6 +33,11 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view : View, savedInstanceState : Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         city = (arguments?.getString("cityName", "London") ?: 0) as String
+
+        binding.cities.setOnClickListener {
+            findNavController().navigate(R.id.action_homeFragment_to_citySelectionFragment2)
+        }
+
 
 
         chooseCity()
