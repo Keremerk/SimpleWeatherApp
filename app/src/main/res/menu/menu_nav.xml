@@ -8,5 +8,4 @@
         android:id="@+id/cities"
         android:icon="@drawable/nav_unselected"
         android:title="Cities" />
-
 </menu>

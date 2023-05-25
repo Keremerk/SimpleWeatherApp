@@ -20,7 +20,6 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object RetrofitInstance {
 
-
     @Singleton
     @Provides
     @Named("loggingInterceptor")
@@ -49,7 +48,4 @@ object RetrofitInstance {
     fun provideApiClient(retrofit: Retrofit): ApiService {
         return retrofit.create(ApiService::class.java)
     }
-
-
-
 }
