@@ -4,13 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.viewModelScope
 import com.example.weatherapp.databinding.FragmentHomeBinding
-import com.example.weatherapp.model.WeatherList
-import com.example.weatherapp.model.WeatherListItem
+import com.example.weatherapp.model.MainData
 import com.example.weatherapp.viewmodel.WeatherViewModel
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
@@ -23,87 +21,91 @@ import java.io.InputStreamReader
 class HomeFragment : Fragment() {
 
     private lateinit var binding : FragmentHomeBinding
-    private val apiViewModel : WeatherViewModel by viewModels()
-
-    override fun onCreate(savedInstanceState : Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
+    private val weatherViewModel : WeatherViewModel by viewModels()
 
     override fun onCreateView(
-        inflater : LayoutInflater, container : ViewGroup?,
-        savedInstanceState : Bundle?
+        inflater : LayoutInflater, container : ViewGroup?, savedInstanceState : Bundle?
     ) : View {
         binding = FragmentHomeBinding.inflate(layoutInflater)
-        //getPrompts()
-        //getVideoImageResult()
         return binding.root
     }
 
     override fun onViewCreated(view : View, savedInstanceState : Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        chooseCity()
+        getWeatherData()
+    }
 
+    private fun chooseCity() {
+        weatherViewModel.viewModelScope.launch {
+            println("deneme.launch")
+
+            weatherViewModel.getCityWeather("London")
+        }
+    }
+
+    private fun getWeatherData() {
         val assetManager = requireContext().assets
         val inputStream = assetManager.open("city.list.json")
         val reader = JsonReader(InputStreamReader(inputStream, "UTF-8"))
 
         try {
             val gson = Gson()
-            val cityListType = object : TypeToken<List<WeatherListItem>>() {}.type
-            val cityList = gson.fromJson<List<WeatherListItem>>(reader, cityListType)
-            val weatherList = WeatherList(cityList) // Create WeatherList object with the city list
+            val cityListType = object : TypeToken<List<MainData>>() {}.type
+            val cityList = gson.fromJson<List<MainData>>(reader, cityListType)
 
-            apiViewModel.viewModelScope.launch {
-                apiViewModel.setCityList(weatherList)
-                val city = apiViewModel.getCityByName("Istanbul")
-                if (city != null) {
-                    val cityName = city.name
-                    val lat = city.coord.lat
-                    val lon = city.coord.lon
-                    val humidity = city.main?.humidity ?: 0
-                    val feelsLike = city.main?.feels_like ?: 0
-                    val temp = city.main?.temp
+            weatherViewModel.viewModelScope.launch {
+                println("viewModelScope.launch")
+
+                weatherViewModel.getWeatherData().observe(viewLifecycleOwner) { city ->
                     println(city)
 
-                    binding.apply {
-                        cityNameTV.text = cityName
-                        //currentDegrees.text =
-                        latitudeTV.text = "Latitude: $lat"
-                        longtitudeTV.text = "Latitude: $lon"
-                        humidityPercentage.text = "%$humidity"
-                        feelsLikeTV.text = "Feels Like: $feelsLike C "
-                        currentDegrees.text = "Current: $temp C"
+                    if (city != null) {
+                        val cityName = city.name
+                        val temp = city.main.temp.toInt()
+                        val feelsLike = city.main.feels_like.toInt()
+                        val highestDegree = city.main.temp_max.toInt()
+                        val lowestDegree = city.main.temp_min.toInt()
+                        val humidity = city.main.humidity
+                        val windSpeed = city.wind.speed
+                        val windGust = city.wind.deg
+
+                        val lat = city.coord.lat
+                        val lon = city.coord.lon
+
+
+
+                        binding.apply {
+                            //City Name
+                            cityNameTV.text = cityName
+                            //Current-Feels Like Degree
+                            currentDegrees.text = "Current: $temp °C"
+                            feelsLikeTV.text = "Feels Like: $feelsLike °C"
+                            //Highest-Lowest Degree
+                            highestDegreesTV.text = "H: $highestDegree °C"
+                            lowestDegreeTV.text = "L: $lowestDegree °C"
+                            //Humidity
+                            humidityPercentage.text = "%$humidity"
+                            //Wind
+                            windSpeedTV.text = "Speed: $windSpeed km/h"
+                            windGustTV.text = "Gust: $windGust km/h"
+                            //Sea Level
+                            //Coordinates
+                            latitudeTV.text = "Latitude: $lat"
+                            longtitudeTV.text = "Longitude: $lon"
+                        }
+                    } else {
+                        // City not found
+                        println("City not found")
                     }
-                } else {
-                    // City not found
-                    println("City not found")
                 }
             }
         } catch (e : Exception) {
+            println("exception catch")
             // Handle the exception
         } finally {
             reader.close()
         }
-
-        /*
-          // Use the cityList here
-        apiViewModel.viewModelScope.launch {
-            apiViewModel.setCityList(cityList)
-        }
-         */
-
-        getCityWeather()
-
     }
 
-    private fun getCityWeather() {
-        apiViewModel.viewModelScope.launch {
-            try {
-                apiViewModel.getCityWeather("London")
-            } catch (e : Exception) {
-                Toast.makeText(requireContext(), "Error inside Home Fragment", Toast.LENGTH_SHORT)
-                    .show()
-            }
-        }
-    }
 }

@@ -1,8 +1,6 @@
 package com.example.weatherapp.data
 
-import com.example.weatherapp.model.WeatherList
-import com.example.weatherapp.utils.Constants
-import okhttp3.ResponseBody
+import com.example.weatherapp.model.WeatherData
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -13,9 +11,11 @@ interface ApiService {
 
     @GET("data/2.5/weather")
     suspend fun getWeather(
-        @Query("q") cityName: String?,
-        @Query("appid") apiKey: String = Constants.API_KEY
-    ): Response<WeatherList>
+        @Query("q") cityName: String,
+        @Query("appid") apiKey: String,
+        @Query("units") units: String
+    ): Response<WeatherData>
+
     /*
     @GET("data/2.5/weather?q={id}&appid={appid}")
     fun getWeather(

@@ -71,7 +71,7 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/highestDegrees"
+                android:id="@+id/highestDegreesTV"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="5dp"
@@ -82,7 +82,7 @@
                 android:textSize="24sp" />
 
             <TextView
-                android:id="@+id/lowestDegree"
+                android:id="@+id/lowestDegreeTV"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
@@ -206,7 +206,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/speedTV"
+            android:id="@+id/windSpeedTV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Speed: 12 km/h"
@@ -224,7 +224,7 @@
             app:layout_constraintGuide_percent="0.5" />
 
         <TextView
-            android:id="@+id/gustTV"
+            android:id="@+id/windGustTV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Gust: 24km/h"
