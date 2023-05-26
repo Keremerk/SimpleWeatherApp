@@ -13,8 +13,8 @@ class Repository @Inject constructor(private val apiService : ApiService) {
     suspend fun getCityWeather(cityName : String) : Flow<Response<WeatherData>> {
         return flow {
             val response = apiService.getWeather(
-                cityName, Constants.API_KEY,
-                "metric")
+                cityName, Constants.API_KEY, "metric"
+            )
             emit(response)
         }.catch {
             println("Error")

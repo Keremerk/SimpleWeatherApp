@@ -5,14 +5,10 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.weatherapp.databinding.CitiesRvItemBinding
 import com.example.weatherapp.model.WeatherData
-import java.util.*
 
 class CityAdapter(
-    private var citiesList : ArrayList<WeatherData>,
-    val OnclickListener : (Int) -> Unit
+    var citiesList : ArrayList<WeatherData>, val OnclickListener : (Int) -> Unit
 ) : RecyclerView.Adapter<CityAdapter.ViewHolder>() {
-    private var filteredList : MutableList<WeatherData> = citiesList.toMutableList()
-
 
     class ViewHolder(binding : CitiesRvItemBinding) : RecyclerView.ViewHolder(binding.root) {
         val cityName = binding.cityNameTvItem
@@ -26,7 +22,6 @@ class CityAdapter(
 
     override fun onBindViewHolder(holder : ViewHolder, position : Int) {
         val item = citiesList[position]
-
         holder.cityName.text = item.name
 
         holder.itemView.setOnClickListener {
@@ -37,34 +32,12 @@ class CityAdapter(
     }
 
     override fun getItemCount() : Int {
-        return filteredList.size
+        return citiesList.size
     }
 
-
-    fun filter2(text: String) {
-        filteredList = if (text.isEmpty()) {
-            citiesList.toMutableList()
-        } else {
-            citiesList.filter {
-                it.name.contains(text, true)
-            }.toMutableList()
-        }
+    fun updateList(newList : List<WeatherData>) {
+        citiesList = newList as ArrayList<WeatherData>
         notifyDataSetChanged()
     }
-
-
-    /*
-    fun filter(query : String) {
-        filteredList = if (query.isEmpty()) {
-            citiesList
-        } else {
-            citiesList.filter { item ->
-                item.name.lowercase().contains(query.lowercase())
-            }
-        }
-        notifyDataSetChanged()
-    }
-
-     */
 
 }
