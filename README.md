@@ -18,7 +18,7 @@ WeatherApp is a mobile application that provides weather information for various
 <br>
 
 # Usage
-The project uses Retrofit to make a GET request to the [OpenWeather]([openweathermap.org/api](https://openweathermap.org/api)) API and retrieve the weather data for the selected city. The data for the selected city is then displayed inside Home Fragment. User can also select a city from the City Selection Fragment.
+The project uses Retrofit to make a GET request to the [OpenWeather](https://openweathermap.org/api) API and retrieve the weather data for the selected city. The data for the selected city is then displayed inside Home Fragment. User can also select a city from the City Selection Fragment.
 
 To use this project, simply clone or download this repository, and open it in Android Studio. Run the project and you should see current weather for the your selected city.
 
