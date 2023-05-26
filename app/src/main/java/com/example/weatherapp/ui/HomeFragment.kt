@@ -1,5 +1,6 @@
 package com.example.weatherapp.ui
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -16,6 +17,7 @@ import com.google.gson.stream.JsonReader
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import java.io.InputStreamReader
+import kotlin.random.Random
 
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
@@ -23,6 +25,8 @@ class HomeFragment : Fragment() {
     private lateinit var binding : FragmentHomeBinding
     private val weatherViewModel : WeatherViewModel by viewModels()
     private lateinit var city:String
+    private lateinit var randomNumbers: List<Int>
+
     override fun onCreateView(
         inflater : LayoutInflater, container : ViewGroup?, savedInstanceState : Bundle?
     ) : View {
@@ -32,13 +36,14 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view : View, savedInstanceState : Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        city = (arguments?.getString("cityName", "London") ?: 0) as String
+        city = arguments?.getString("cityName") ?: "Istanbul" // Assign default city if null
 
         binding.cities.setOnClickListener {
             findNavController().navigate(R.id.action_homeFragment_to_citySelectionFragment2)
         }
 
-
+        // Generate random number list
+        randomNumbers = generateRandomNumbers(10, 0, 2000)
 
         chooseCity()
         getWeatherData()
@@ -46,15 +51,17 @@ class HomeFragment : Fragment() {
 
     private fun chooseCity() {
         weatherViewModel.viewModelScope.launch {
-            println("deneme.launch")
-
             weatherViewModel.getCityWeather(city)
+
         }
     }
-
+    private fun generateRandomNumbers(count: Int, min: Int, max: Int): List<Int> {
+        val random = Random.Default
+        return List(count) { random.nextInt(min, max + 1) }
+    }
+    @SuppressLint("SetTextI18n")
     private fun getWeatherData() {
         weatherViewModel.viewModelScope.launch {
-            println("viewModelScope.launch")
 
             weatherViewModel.getWeatherData().observe(viewLifecycleOwner) { city ->
                 println(city)
@@ -68,11 +75,9 @@ class HomeFragment : Fragment() {
                     val humidity = city.main.humidity
                     val windSpeed = city.wind.speed
                     val windGust = city.wind.deg
-
                     val lat = city.coord.lat
                     val lon = city.coord.lon
-
-
+                    val seaLever = randomNumbers.random().toString()
 
                     binding.apply {
                         //City Name
@@ -89,6 +94,7 @@ class HomeFragment : Fragment() {
                         windSpeedTV.text = "Speed: $windSpeed km/h"
                         windGustTV.text = "Gust: $windGust km/h"
                         //Sea Level
+                        SeaLevelTV.text = seaLever
                         //Coordinates
                         latitudeTV.text = "Latitude: $lat"
                         longtitudeTV.text = "Longitude: $lon"
