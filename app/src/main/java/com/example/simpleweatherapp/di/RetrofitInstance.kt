@@ -1,7 +1,7 @@
-package com.example.weatherapp.di
+package com.example.simpleweatherapp.di
 
-import com.example.weatherapp.data.ApiService
-import com.example.weatherapp.utils.Constants
+import com.example.simpleweatherapp.data.ApiService
+import com.example.simpleweatherapp.utils.Constants
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

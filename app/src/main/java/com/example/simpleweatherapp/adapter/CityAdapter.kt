@@ -1,10 +1,10 @@
-package com.example.weatherapp.adapter
+package com.example.simpleweatherapp.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.weatherapp.databinding.CitiesRvItemBinding
-import com.example.weatherapp.model.WeatherData
+import com.example.simpleweatherapp.model.WeatherData
 
 class CityAdapter(
     var citiesList : ArrayList<WeatherData>, val OnclickListener : (Int) -> Unit

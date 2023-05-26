@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.example.weatherapp.ui.HomeFragment"
+        android:name="com.example.simpleweatherapp.ui.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" >
         <argument
@@ -20,7 +20,7 @@
     </fragment>
     <fragment
         android:id="@+id/citySelectionFragment"
-        android:name="com.example.weatherapp.ui.CitySelectionFragment"
+        android:name="com.example.simpleweatherapp.ui.CitySelectionFragment"
         android:label="fragment_city_selection"
         tools:layout="@layout/fragment_city_selection" >
         <action

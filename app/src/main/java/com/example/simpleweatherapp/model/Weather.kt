@@ -1,4 +1,4 @@
-package com.example.weatherapp.model
+package com.example.simpleweatherapp.model
 
 data class Weather(
     val id : Int,
