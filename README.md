@@ -1,4 +1,4 @@
-# WeatherApp
+# SimpleWeatherApp
  
 WeatherApp is a mobile application that provides weather information for various cities. Users can search for cities, view the current weather conditions, and get details such as temperature, humidity, wind speed, and more.
 
