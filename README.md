@@ -49,7 +49,7 @@ The WeatherApp project utilizes the following libraries:
 
 To run the WeatherApp project locally, follow these steps:
 
-1. Clone the repository: `git clone https://github.com/yourusername/weatherapp.git`
+1. Clone the repository: `git clone https://github.com/Keremerk/weatherapp.git`
 2. Open the project in Android Studio.
 3. Build and run the project on an emulator or physical device.
 
