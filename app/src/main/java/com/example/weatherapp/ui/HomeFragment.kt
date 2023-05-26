@@ -9,14 +9,11 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
 import com.example.weatherapp.R
 import com.example.weatherapp.databinding.FragmentHomeBinding
 import com.example.weatherapp.viewmodel.WeatherViewModel
-import com.google.gson.stream.JsonReader
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-import java.io.InputStreamReader
 import kotlin.random.Random
 
 @AndroidEntryPoint
@@ -24,8 +21,8 @@ class HomeFragment : Fragment() {
 
     private lateinit var binding : FragmentHomeBinding
     private val weatherViewModel : WeatherViewModel by viewModels()
-    private lateinit var city:String
-    private lateinit var randomNumbers: List<Int>
+    private lateinit var city : String
+    private lateinit var randomNumbers : List<Int>
 
     override fun onCreateView(
         inflater : LayoutInflater, container : ViewGroup?, savedInstanceState : Bundle?
@@ -37,9 +34,12 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view : View, savedInstanceState : Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         city = arguments?.getString("cityName") ?: "Istanbul" // Assign default city if null
-
+        val currentCity = binding.cityNameTV.text.toString()
+        val bundle = Bundle().apply {
+            putString("currentCity", currentCity)
+        }
         binding.cities.setOnClickListener {
-            findNavController().navigate(R.id.action_homeFragment_to_citySelectionFragment2)
+            findNavController().navigate(R.id.action_homeFragment_to_citySelectionFragment2, bundle)
         }
 
         // Generate random number list
@@ -52,13 +52,14 @@ class HomeFragment : Fragment() {
     private fun chooseCity() {
         weatherViewModel.viewModelScope.launch {
             weatherViewModel.getCityWeather(city)
-
         }
     }
-    private fun generateRandomNumbers(count: Int, min: Int, max: Int): List<Int> {
+
+    private fun generateRandomNumbers(count : Int, min : Int, max : Int) : List<Int> {
         val random = Random.Default
         return List(count) { random.nextInt(min, max + 1) }
     }
+
     @SuppressLint("SetTextI18n")
     private fun getWeatherData() {
         weatherViewModel.viewModelScope.launch {

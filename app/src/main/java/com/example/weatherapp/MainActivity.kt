@@ -23,7 +23,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(view)
 
         try {
-
             val assetManager = this.assets
             val inputStream = assetManager.open("city.list.json")
             val reader = JsonReader(InputStreamReader(inputStream, "UTF-8"))
@@ -32,14 +31,10 @@ class MainActivity : AppCompatActivity() {
             val cityListType = object : TypeToken<ArrayList<WeatherData>>() {}.type
             CityList.list = gson.fromJson(reader, cityListType)
             reader.close()
-
         } catch (e : Exception) {
             println("Exception: ${e.message}")
-            // Handle the exception
         }
     }
-
-
 }
 
 

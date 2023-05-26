@@ -9,18 +9,16 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
-@HiltViewModel
-class WeatherViewModel @Inject constructor(private val repository: Repository) : ViewModel() {
 
+@HiltViewModel
+class WeatherViewModel @Inject constructor(private val repository : Repository) : ViewModel() {
     private var weatherData = MutableLiveData<WeatherData>()
 
     fun getWeatherData() = weatherData
 
-
-    fun getCityWeather(cityName: String) {
+    fun getCityWeather(cityName : String) {
         viewModelScope.launch {
-            repository.getCityWeather(cityName)
-                .collectLatest { response ->
+            repository.getCityWeather(cityName).collectLatest { response ->
                     if (response.isSuccessful) {
                         weatherData.value = response.body()
                         // Do something with the weather data

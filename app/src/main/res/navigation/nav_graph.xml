@@ -26,5 +26,9 @@
         <action
             android:id="@+id/action_citySelectionFragment_to_homeFragment2"
             app:destination="@id/homeFragment" />
+        <argument
+            android:name="currentCity"
+            app:argType="string"
+            app:nullable="true" />
     </fragment>
 </navigation>
