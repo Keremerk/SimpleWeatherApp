@@ -1,4 +1,4 @@
-package com.example.weatherapp.ui
+package com.example.simpleweatherapp.ui
 
 import android.os.Bundle
 import android.text.Editable
@@ -10,10 +10,10 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.weatherapp.R
-import com.example.weatherapp.adapter.CityAdapter
+import com.example.simpleweatherapp.adapter.CityAdapter
+import com.example.simpleweatherapp.model.WeatherData
+import com.example.simpleweatherapp.utils.CityList
 import com.example.weatherapp.databinding.FragmentCitySelectionBinding
-import com.example.weatherapp.model.WeatherData
-import com.example.weatherapp.utils.CityList
 
 class CitySelectionFragment : Fragment() {
     private lateinit var binding : FragmentCitySelectionBinding

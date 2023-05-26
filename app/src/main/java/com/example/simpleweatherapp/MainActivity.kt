@@ -1,10 +1,10 @@
-package com.example.weatherapp
+package com.example.simpleweatherapp
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.weatherapp.databinding.ActivityMainBinding
-import com.example.weatherapp.model.WeatherData
-import com.example.weatherapp.utils.CityList
+import com.example.simpleweatherapp.model.WeatherData
+import com.example.simpleweatherapp.utils.CityList
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.google.gson.stream.JsonReader

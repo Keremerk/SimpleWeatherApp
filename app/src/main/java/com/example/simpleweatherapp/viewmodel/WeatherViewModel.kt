@@ -1,10 +1,10 @@
-package com.example.weatherapp.viewmodel
+package com.example.simpleweatherapp.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.weatherapp.model.WeatherData
-import com.example.weatherapp.repository.Repository
+import com.example.simpleweatherapp.model.WeatherData
+import com.example.simpleweatherapp.repository.Repository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch

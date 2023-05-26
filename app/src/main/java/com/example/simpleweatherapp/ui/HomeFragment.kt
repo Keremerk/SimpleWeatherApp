@@ -1,4 +1,4 @@
-package com.example.weatherapp.ui
+package com.example.simpleweatherapp.ui
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -11,7 +11,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.navigation.fragment.findNavController
 import com.example.weatherapp.R
 import com.example.weatherapp.databinding.FragmentHomeBinding
-import com.example.weatherapp.viewmodel.WeatherViewModel
+import com.example.simpleweatherapp.viewmodel.WeatherViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import kotlin.random.Random
